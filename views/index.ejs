@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    <%= title %>
+  </title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-a: #07111f;
+      --bg-b: #0c1f33;
+      --panel: rgba(10, 16, 30, 0.78);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #9fb0c8;
+      --accent: #7c3aed;
+      --accent-2: #22c55e;
+      --accent-3: #06b6d4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.35), transparent 32%),
+        radial-gradient(circle at 85% 15%, rgba(6, 182, 212, 0.25), transparent 28%),
+        linear-gradient(135deg, var(--bg-a), var(--bg-b));
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      pointer-events: none;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.45;
+    }
+
+    body::before {
+      width: 280px;
+      height: 280px;
+      left: -90px;
+      bottom: -80px;
+      background: rgba(34, 197, 94, 0.25);
+    }
+
+    body::after {
+      width: 200px;
+      height: 200px;
+      right: 40px;
+      top: 90px;
+      background: rgba(124, 58, 237, 0.2);
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-badge span {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.12);
+    }
+
+    .form-card {
+      width: min(100%, 760px);
+      border: 1px solid var(--panel-border);
+      border-radius: 30px;
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 35%);
+      pointer-events: none;
+    }
+
+    .form-head {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 24px;
+    }
+
+    .form-head h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .form-head p {
+      margin: 12px 0 0;
+      max-width: 46ch;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .question-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 16px;
+    }
+
+    .question-block {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .form-label {
+      font-weight: 700;
+      color: #eef2ff;
+      margin-bottom: 10px;
+    }
+
+    .form-select,
+    .form-control {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background-color: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      box-shadow: none;
+    }
+
+    .form-select:focus,
+    .form-control:focus {
+      border-color: rgba(124, 58, 237, 0.65);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.18);
+      background-color: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+    }
+
+    .form-select option {
+      color: #0f172a;
+    }
+
+    .submit-row {
+      margin-top: 20px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #4f46e5 55%, var(--accent-3));
+      border: none;
+      border-radius: 16px;
+      font-weight: 700;
+      padding: 0.95rem 1.2rem;
+      box-shadow: 0 18px 30px rgba(124, 58, 237, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 34px rgba(124, 58, 237, 0.28);
+    }
+
+    .btn-primary:focus {
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.22);
+    }
+
+    @media (max-width: 576px) {
+      .form-card {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .question-block {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page-shell">
+    <section class="form-card">
+      <div class="form-head text-center text-sm-start">
+        <div class="hero-badge"><span></span> Rychlá anonymní anketa</div>
+        <h1><%= title %></h1>
+        <p>Vyplň krátký formulář a po odeslání se odpovědi zobrazí v přehledu výsledků.</p>
+      </div>
+
+      <form action="/submit" method="POST" class="question-grid">
+        <div class="question-block">
+          <label class="form-label">Oblíbený den v týdnu</label>
+
+          <select class="form-select" name="den" required>
+            <option value="">Vyber...</option>
+            <option value="Pondělí">Pondělí</option>
+            <option value="Úterý">Úterý</option>
+            <option value="Středa">Středa</option>
+            <option value="Čtvrtek">Čtvrtek</option>
+            <option value="Pátek">Pátek</option>
+            <option value="Sobota">Sobota</option>
+            <option value="Neděle">Neděle</option>
+          </select>
+        </div>
+
+
+        <div class="question-block">
+          <label class="form-label">Jak často sportuješ během týdne?</label>
+
+          <select class="form-select" name="sport" required>
+            <option value="">Vyber...</option>
+            <option value="nikdy">Nikdy</option>
+            <option value="1-2x">1–2x týdně</option>
+            <option value="3-4x">3–4x týdně</option>
+            <option value="5+x">5x a více týdně</option>
+          </select>
+        </div>
+
+
+        <div class="question-block">
+          <label class="form-label">Jak nejraději trávíš volný čas?</label>
+
+          <select class="form-select" name="volnycas" required>
+            <option value="">Vyber...</option>
+            <option value="sport">Sportem</option>
+            <option value="knihy">Čtením knih</option>
+            <option value="pc">Na počítači</option>
+            <option value="rodina">S rodinou nebo přáteli</option>
+          </select>
+        </div>
+
+
+        <div class="question-block">
+          <label class="form-label">Komentář:</label>
+
+          <textarea class="form-control" name="komentar" rows="3" required></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button class="btn btn-primary w-100">
+          Odeslat odpověď
+          </button>
+        </div>
+      </form>
+
+    </section>
+  </main>
+
+</body>
+
+</html>
